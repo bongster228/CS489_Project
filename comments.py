@@ -11,11 +11,13 @@ def get_comment_score_per_sub(instance, user):
     temp = {'name': redditor.name}  # dictionary for subreddit scores
     comment_list = []               # list of comment ids to check for duplicate comments
     
+    # Load all available new, top, controversial comments
     sorts = [redditor.comments.new(limit=None), redditor.comments.top(limit=None), redditor.comments.controversial(limit=None)]
     for sort in sorts:
         for redditor_comment in sort:
             body = redditor_comment.body # Get comment body
 
+            # Check for duplicate comments
             if redditor_comment.id not in comment_list:
                 # Update subreddit score if exists
                 if redditor_comment.subreddit.display_name in temp.keys():
