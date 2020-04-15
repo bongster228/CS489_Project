@@ -22,7 +22,7 @@ reddit = praw.Reddit(client_id='a8fxlGxtt5HeRg', client_secret='x0oQ53axICf_azi5
 # Create instance of redditor for PolCompBot
 redditor = reddit.redditor('PolCompBot')
 
-for redditor_comment in redditor.comments.new(limit=20):
+for redditor_comment in redditor.comments.new(limit=100):
     body = redditor_comment.body # Get comment body
     
     # Get lib/auth left/right score from comment body, cast to float
