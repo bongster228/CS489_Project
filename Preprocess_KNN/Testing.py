@@ -1,3 +1,4 @@
+
 import pandas as pd
 import numpy as np
 import numpy.matlib
@@ -60,45 +61,51 @@ kf = KFold(n_splits=5, random_state=None, shuffle=True)
 X = dataset.iloc[:, 2:]
 y = dataset.iloc[:, 0]
 
-acurracy = []
+k_accuracy = []
 
-for train, test in kf.split(dataset):
-    X_train = X.iloc[train]
-    X_test = X.iloc[test]
-    y_train = y.iloc[train]
-    y_test = y.iloc[test]
 
-    # ====================================================================================
-    # Set k and run the prediction
-    results = pd.DataFrame()
-    results['Groundtruth'] = y_test
-    predictions = list()
-    match = list()
+for _k in range(5, 11, 2):
+   acurracy = []
+   print(_k)
+     for train, test in kf.split(dataset):
+        X_train = X.iloc[train]
+        X_test = X.iloc[test]
+        y_train = y.iloc[train]
+        y_test = y.iloc[test]
 
-    # Make predictions about the test data
-    for i in range(len(X_test)):
-        predictions.append(predict_from_query(
-            X_train, X_test.iloc[i], k, y_train))
-        match.append(predictions[i] == results.iloc[i, 0])
+        # ====================================================================================
+        # Set k and run the prediction
+        results = pd.DataFrame()
+        results['Groundtruth'] = y_test
+        predictions = list()
+        match = list()
 
-    # Combine the results
-    results['Predictions'] = predictions
-    results['Match'] = match
-    # Count the correct and wrong predictions
-    matchTrue = results['Match'].value_counts()[1]
-    matchFalse = results['Match'].value_counts()[0]
-    # Display the results
-    if(printTable):
-        print(results)
+        # Make predictions about the test data
+        for i in range(len(X_test)):
+            predictions.append(predict_from_query(
+                X_train, X_test.iloc[i], _k, y_train))
+            match.append(predictions[i] == results.iloc[i, 0])
 
-    print(f'Correct: {matchTrue}  Incorrect: {matchFalse}')
-    print(f'Accuracy: {(matchTrue/(matchTrue + matchFalse)*100):.2f}%')
-    acurracy.append((matchTrue/(matchTrue + matchFalse)*100))
-    # ====================================================================================
+        # Combine the results
+        results['Predictions'] = predictions
+        results['Match'] = match
+        # Count the correct and wrong predictions
+        matchTrue = results['Match'].value_counts()[1]
+        matchFalse = results['Match'].value_counts()[0]
+        # Display the results
+        if(printTable):
+            print(results)
 
-plt.plot(acurracy)
-plt.xlabel("Test Cases")
-plt.ylabel("Accuracy")
-plt.title("10 Fold Cross Validation")
+        print(f'Correct: {matchTrue}  Incorrect: {matchFalse}')
+        print(f'Accuracy: {(matchTrue/(matchTrue + matchFalse)*100):.2f}%')
+        acurracy.append((matchTrue/(matchTrue + matchFalse)*100))
+        # ====================================================================================`
+    k_accuracy.append(acurracy.mean())
 
-plt.savefig('graph.png')
+print(k_accuracy)
+# plt.plot(acurracy)
+# plt.xlabel("Test Cases")
+# plt.ylabel("Accuracy")
+# plt.title("10 Fold Cross Validation")
+
+# plt.savefig('graph.png')
