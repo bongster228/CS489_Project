@@ -64,10 +64,10 @@ y = dataset.iloc[:, 0]
 k_accuracy = []
 
 
-for _k in range(5, 11, 2):
-   acurracy = []
-   print(_k)
-     for train, test in kf.split(dataset):
+for _k in range(3, 19, 2):
+    acurracy = []
+    print(_k)
+    for train, test in kf.split(dataset):
         X_train = X.iloc[train]
         X_test = X.iloc[test]
         y_train = y.iloc[train]
@@ -101,6 +101,14 @@ for _k in range(5, 11, 2):
         acurracy.append((matchTrue/(matchTrue + matchFalse)*100))
         # ====================================================================================`
     k_accuracy.append(acurracy.mean())
+
+x_axis = [3, 5, 7, 9, 11, 13, 15, 17, 19]
+
+plt.plot(x_axis, k_accuracy)
+plt.xlabel('K value for KNN')
+plt.ylabel('% Accuracy')
+plt.title('Finding Optimal K')
+plt.savefig('FindK.png')
 
 print(k_accuracy)
 # plt.plot(acurracy)
