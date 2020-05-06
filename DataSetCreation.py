@@ -1,4 +1,6 @@
 import praw
+import comments
+import time
 from datetime import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -22,7 +24,7 @@ reddit = praw.Reddit(client_id='a8fxlGxtt5HeRg', client_secret='x0oQ53axICf_azi5
 # Create instance of redditor for PolCompBot
 redditor = reddit.redditor('PolCompBot')
 
-for redditor_comment in redditor.comments.new(limit=100):
+for redditor_comment in redditor.comments.new(limit=None):
     body = redditor_comment.body # Get comment body
     
     # Get lib/auth left/right score from comment body, cast to float
@@ -54,6 +56,7 @@ for redditor_comment in redditor.comments.new(limit=100):
 quadrants = ['LibRight', 'AuthUnity', 'LeftUnity', 'Centrist', 'RightUnity', 'LibLeft', 'AuthLeft', 'AuthRight', 'LibUnity']
 quad_colors = ['#c19bed','#b493af', '#c0c080','#c0c0c0','#93afdc','#80ff80','#ff8080','#40acff','#aec5c3']
 
+"""
 fig = plt.figure()
 for quad,col in zip(quadrants,quad_colors):
     cond_y = np.array(masterList[masterList['quadrant']==quad]['libAuth'].str.replace(r'[\[\]]','').astype(float))
@@ -67,6 +70,38 @@ currentAxis = plt.gca()
 # currentAxis.add_patch(Rectangle((-3.5, -3.5), 7, 7, fill = False)).set_edgecolor('#c0c0c0')
 
 plt.show()
+"""
 
 # Save MasterList to CSV
 masterList.to_csv("masterList.csv")
+
+# read CSV of saved redditor scores
+redditor_scores = pd.read_csv('reddior_scores.csv', header=0)
+
+# Get users who have PolCompBot score but missing comment karma
+missing_users = masterList[~masterList['name'].isin(redditor_scores['name'])]['name']
+
+# Loop over users
+for user in missing_users:
+    redditor = reddit.redditor(re.sub("/u/",'',user))
+    temp = {} # temporary dictionary to store scores
+    if redditor.name in redditor_scores['name'].values:
+        print(redditor.name, "is already saved")
+    elif redditor.name not in redditor_scores['name'].values:
+        # start = time.time() # start time
+        try:
+            # Get user comment karma
+            temp = comments.get_comment_score_per_sub(reddit, redditor.name)
+        except:
+            print("Missing redditor!")
+            temp = {}
+        # print("Scores retrieved for ", redditor.name)
+        # print("Time elapsed: ", (time.time() - start)) # end time
+    if temp != {}:
+        # Add retrieved scores to database
+        redditor_scores = redditor_scores.append(temp, ignore_index=True)
+
+# print(redditor_scores)
+
+# Save scores to CSV
+redditor_scores.to_csv('reddior_scores.csv', index=False)
