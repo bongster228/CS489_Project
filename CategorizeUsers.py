@@ -15,8 +15,6 @@ categories = {
     "LibUnity": 7,
     "AuthUnity": 8,
     "Centrist": 9
-
-
 }
 
 # Replace categories with integers
