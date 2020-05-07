@@ -90,7 +90,8 @@ subreddit_counts = pd.DataFrame(redditor_scores.count().sort_values())
 
 boxplot = subreddit_counts.boxplot(column=0)
 plt.show()
-"""
+
+
 redditor_scores = pd.read_csv('Outliers_dropped.csv', header=0,index_col='name')
 
 # Min-max subreddits
@@ -101,3 +102,34 @@ for col in (list(redditor_scores.columns)):
     redditor_scores[col] = (redditor_scores[col] - smin) / smax_min
 
 redditor_scores.to_csv('Minmax_outliers_1dropped.csv', index=True)
+"""
+
+redditor_scores = pd.read_csv('705_scores.csv', header=0)
+
+label_catergories = {
+    "AuthLeft": 1,
+    "LibLeft": 2,
+    "AuthRight": 3,
+    "LibRight": 4,
+    "RightUnity": 5,
+    "LeftUnity": 6,
+    "LibUnity": 7,
+    "AuthUnity": 8,
+    "Centrist": 9
+}
+
+# Create Data Base of redditors with scores calculated by PolCompBot
+masterList = pd.read_csv('balancedMaster.csv',
+                        header=0,
+                        names=['name','libAuth','lefRit','quadrant'])
+
+masterList['name'] = masterList['name'].apply(lambda x: x[3:])
+masterList['name'] = masterList['name']
+
+print(redditor_scores.shape)
+
+masterList = masterList[masterList.name.isin(redditor_scores['name'])]
+
+print(masterList.shape)
+
+masterList.to_csv('705_labels.csv')

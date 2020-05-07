@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 from numpy import random
 import numpy.matlib
-import matplotlib.pyplot as plt
 
 label_catergories = {
     "AuthLeft": 1,
@@ -15,9 +14,8 @@ label_catergories = {
     "AuthUnity": 8,
     "Centrist": 9
 }
-redditor_scores = pd.read_csv('Minmax_outliers_1dropped.csv', header=0)
-masterList = pd.read_csv('masterList.csv')
-masterList['name'] = masterList['name'].apply(lambda x: x[3:])
+redditor_scores = pd.read_csv('705_scores.csv', header=0)
+masterList = pd.read_csv('705_labels.csv')
 
 
 """
@@ -32,18 +30,20 @@ redditor_scores = pd.DataFrame(redditor_scores)
 ks_array = [0]*23
 
 n,p = redditor_scores.shape
+print(redditor_scores.shape)
 
-for k in range(1,24):
+print(masterList.shape)
+for k in range(9,10):
     # Shuffle data and labels
     np.random.shuffle(redditor_scores.to_numpy())
     redditor_scores = pd.DataFrame(redditor_scores)
     # Training data
-    train_data = redditor_scores.iloc[:1162, :]
+    train_data = redditor_scores.iloc[:634, :]
     Y_train = train_data.iloc[:, 0]
     X_train = train_data.iloc[:, 1:]
 
     # Test data
-    test_data = redditor_scores.iloc[1162:, :]
+    test_data = redditor_scores.iloc[634:, :]
     Y_groundtruth = test_data.iloc[:, 0]
 
     predictions = 0
@@ -86,8 +86,5 @@ for k in range(1,24):
             print("Correct!")
 
         predictions+=1
-    ks_array[k] += (predictions_correct/predictions)
+    ks_array[k] = (predictions_correct/predictions)
     print(predictions_correct/predictions)
-    
-plt.plot(ks_array)
-plt.show
