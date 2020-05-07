@@ -141,6 +141,16 @@ currentAxis = plt.gca()
 
 plt.show()
 """
-redditor_scores = pd.read_csv('scores_over_count_gt_30.csv', header=0)
 
-print(redditor_scores)
+total = pd.read_csv('scores_over_count_gt_30_zscoresub.csv', header=0)
+redditor_scores = total
+
+print(total.shape)
+previousname = total.name[0]
+for i in range(1,total.shape[0]):
+    if total.name[i] == total.name[i-1]:
+        print("Duplicate!")
+        redditor_scores = redditor_scores.drop(index=i)
+
+print(redditor_scores.shape)
+redditor_scores.to_csv('scores_over_count_gt_30_zscoresub_dupsdrop.csv', index=True)
