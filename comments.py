@@ -9,6 +9,7 @@ def get_comment_score_per_sub(instance, user):
     redditor = instance.redditor(user)
 
     temp = {'name': redditor.name}  # dictionary for subreddit scores
+    temp2 = {'name': redditor.name}
     comment_list = []               # list of comment ids to check for duplicate comments
     
     # Load all available new, top, controversial comments
@@ -23,18 +24,20 @@ def get_comment_score_per_sub(instance, user):
                 if redditor_comment.subreddit.display_name in temp.keys():
                     try:
                         temp[redditor_comment.subreddit.display_name] += redditor_comment.score
+                        temp2[redditor_comment.subreddit.display_name] += 1
                     except:
                         temp = {}
-                        print("Missing redditor!")
+                        print("Error updating key!")
 
                 # Else create subreddit key initialize to comment score
                 elif redditor_comment.subreddit.display_name not in temp.keys():
                     try:
                         temp[redditor_comment.subreddit.display_name] = redditor_comment.score
+                        temp2[redditor_comment.subreddit.display_name] = 1
                     except:
                         temp = {}
-                        print("Missing redditor!")
+                        print("Error init key!")
 
                 comment_list.append(redditor_comment.id)
 
-    return temp
+    return temp, temp2

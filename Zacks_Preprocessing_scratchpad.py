@@ -102,9 +102,9 @@ for col in (list(redditor_scores.columns)):
     redditor_scores[col] = (redditor_scores[col] - smin) / smax_min
 
 redditor_scores.to_csv('Minmax_outliers_1dropped.csv', index=True)
-"""
 
-redditor_scores = pd.read_csv('705_scores.csv', header=0)
+
+# redditor_scores = pd.read_csv('reddior_score_over_count.csv', header=0)
 
 label_catergories = {
     "AuthLeft": 1,
@@ -119,17 +119,28 @@ label_catergories = {
 }
 
 # Create Data Base of redditors with scores calculated by PolCompBot
-masterList = pd.read_csv('balancedMaster.csv',
+masterList = pd.read_csv('Labels_with_scores.csv',
                         header=0,
                         names=['name','libAuth','lefRit','quadrant'])
 
-masterList['name'] = masterList['name'].apply(lambda x: x[3:])
-masterList['name'] = masterList['name']
+# Create Scatter Plot of scores
+quadrants = ['LibRight', 'AuthUnity', 'LeftUnity', 'Centrist', 'RightUnity', 'LibLeft', 'AuthLeft', 'AuthRight', 'LibUnity']
+quad_colors = ['#c19bed','#b493af', '#c0c080','#c0c0c0','#93afdc','#80ff80','#ff8080','#40acff','#aec5c3']
 
-print(redditor_scores.shape)
+fig = plt.figure()
+for quad,col in zip(quadrants,quad_colors):
+    cond_y = np.array(masterList[masterList['quadrant']==quad]['libAuth'].str.replace(r'[\[\]]','').astype(float))
+    cond_x = np.array(masterList[masterList['quadrant']==quad]['lefRit'].str.replace(r'[\[\]]','').astype(float))
+    plt.scatter(cond_x,cond_y,color=col)
 
-masterList = masterList[masterList.name.isin(redditor_scores['name'])]
+plt.grid(True)
+plt.xlabel('Left/Right')
+plt.ylabel('Lib/Auth')
+currentAxis = plt.gca()
+# currentAxis.add_patch(Rectangle((-3.5, -3.5), 7, 7, fill = False)).set_edgecolor('#c0c0c0')
 
-print(masterList.shape)
+plt.show()
+"""
+redditor_scores = pd.read_csv('scores_over_count_gt_30.csv', header=0)
 
-masterList.to_csv('705_labels.csv')
+print(redditor_scores)
