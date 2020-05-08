@@ -140,9 +140,9 @@ currentAxis = plt.gca()
 # currentAxis.add_patch(Rectangle((-3.5, -3.5), 7, 7, fill = False)).set_edgecolor('#c0c0c0')
 
 plt.show()
-"""
 
-total = pd.read_csv('scores_over_count_gt_30_zscoresub.csv', header=0)
+
+total = pd.read_csv('scores_over_count_gt_30_zscoresub_dupsdrop.csv', header=0)
 redditor_scores = total
 
 print(total.shape)
@@ -154,3 +154,14 @@ for i in range(1,total.shape[0]):
 
 print(redditor_scores.shape)
 redditor_scores.to_csv('scores_over_count_gt_30_zscoresub_dupsdrop.csv', index=True)
+"""
+redditor_scores = pd.read_csv('scores_over_count_gt_30_zscoresub_dupsdrop.csv', header=0, index_col='name')
+
+# Min-max subreddits
+for name in redditor_scores:
+    smin = redditor_scores[name].min()
+    smax = redditor_scores[name].max()
+    smax_min = smax - smin
+    redditor_scores[name] = (redditor_scores[name] - smin) / smax_min
+
+redditor_scores.to_csv('scores_over_count_gt_30_minmax.csv')
