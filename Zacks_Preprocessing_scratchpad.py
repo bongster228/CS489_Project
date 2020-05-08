@@ -155,12 +155,18 @@ for i in range(1,total.shape[0]):
 print(redditor_scores.shape)
 redditor_scores.to_csv('scores_over_count_gt_30_zscoresub_dupsdrop.csv', index=True)
 """
-redditor_scores = pd.read_csv('scores_over_count_gt_30_minmax.csv', header=0, index_col='name')
+redditor_scores = pd.read_csv('reddior_counts_combined_trimmed.csv', header=0, index_col='name')
 
-subreds = ['accidentallycommunist','chapotraphouse2','communism','communism101','debateacommunist','debatecommunism','fullcommunism','latestagecapitalism','moretankiechapo','genzedong']
+subreds = ['BaemyKlobaechar','centerleftpolitics','JoeBiden','neoconNWO','neoliberal','pete_buttigieg','tuesday','yangforpresidenthq','centrist','presidentbloomberg']
 
 for subr in subreds:
     if subr in redditor_scores.columns:
         redditor_scores.drop(columns=subr, inplace=True)
 
-redditor_scores.to_csv('scores_over_count_gt_30_poldropped.csv')
+redditor_scores.to_csv('reddior_counts_combined_trimmed1.csv')
+"""
+
+redditor_scores = pd.read_csv('reddior_counts_combined_trimmed.csv', header=0, index_col='name')
+
+print(redditor_scores.shape)
+"""
