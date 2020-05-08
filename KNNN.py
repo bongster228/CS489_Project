@@ -15,13 +15,14 @@ label_catergories = {
     "AuthUnity": 8,
     "Centrist": 9
 }
+
 quadrants = ['AuthLeft', 'LibLeft', 
             'AuthRight', 'LibRight',
             'RightUnity','LeftUnity',
             'LibUnity', 'AuthUnity', 'Centrist']
 
-redditor_scores_template = pd.read_csv('scores_over_count_gt_30_minmax.csv', header=0)
-redditor_scores_template = redditor_scores_template.iloc[0:750,:850]
+redditor_scores_template = pd.read_csv('scores_over_count_gt_30_poldropped.csv', header=0)
+redditor_scores_template = redditor_scores_template.iloc[0:400,:700]
 redditor_scores = redditor_scores_template
 masterList = pd.read_csv('Labels_with_scores.csv')
 
@@ -44,8 +45,11 @@ ind = np.arange(9)
 width = 0.35 
 
 print(masterList.shape)
-for v in range(0,1):
-    for k in range(7,11):
+total_predictions = 0
+total_predictions_correct = 0
+for v in range(0,5):
+    
+    for k in range(11,12):
         name_count = {}
         quad_predictions = [0,0,0,0,0,0,0,0,0]
         cor_quad_predictions = [0,0,0,0,0,0,0,0,0]
@@ -54,7 +58,7 @@ for v in range(0,1):
         predictions_correct = 0
         for z in range(0,10):
             # Shuffle data and labels
-            print("***SHUFFLING SAMPLES FOR " + str(k) + "***")
+            # print("***SHUFFLING SAMPLES FOR " + str(k) + "***")
             redditor_scores = redditor_scores_template.sample(frac=.1).reset_index()
             del redditor_scores['index']
 
@@ -106,7 +110,7 @@ for v in range(0,1):
             # print(test_data)
             # exit()
             #Loop for tests
-            print("***TRAINING FOR " + str(k) + "***")
+            # print("***TRAINING FOR " + str(k) + "***")
             for j in range(0,test_data.shape[0]):
                 X_test = test_data.iloc[j, 1:]
 
@@ -150,9 +154,11 @@ for v in range(0,1):
                     predictions_correct+=1
                     # print("Correct!")
                     cor_quad_predictions[prediction]+=1
-                else: missed_quad_predictions[prediction]+=1
+                else: missed_quad_predictions[label_catergories[masterList.quadrant[index]]-1]+=1
                 predictions+=1
 
+            total_predictions+=predictions
+            total_predictions_correct+=predictions_correct
         name_count = {k: v for k, v in sorted(name_count.items(), key=lambda item: item[1])}
         # print(name_count)
         ks_array[k] = (predictions_correct/predictions)
@@ -169,8 +175,11 @@ for v in range(0,1):
     p2 = plt.bar(ind, missed_quad_predictions, bottom = cor_quad_predictions,  color='b')
     plt.legend((p1[0], p2[0]), ('Correct', 'Missed'))
 
-    plt.show()
+    plt.show() 
 # exit()
+
 """        
+print(str(total_predictions_correct/total_predictions))
+
 plt.plot(ks_array[3:18])
 plt.show()

@@ -155,13 +155,12 @@ for i in range(1,total.shape[0]):
 print(redditor_scores.shape)
 redditor_scores.to_csv('scores_over_count_gt_30_zscoresub_dupsdrop.csv', index=True)
 """
-redditor_scores = pd.read_csv('scores_over_count_gt_30_zscoresub_dupsdrop.csv', header=0, index_col='name')
+redditor_scores = pd.read_csv('scores_over_count_gt_30_minmax.csv', header=0, index_col='name')
 
-# Min-max subreddits
-for name in redditor_scores:
-    smin = redditor_scores[name].min()
-    smax = redditor_scores[name].max()
-    smax_min = smax - smin
-    redditor_scores[name] = (redditor_scores[name] - smin) / smax_min
+subreds = ['accidentallycommunist','chapotraphouse2','communism','communism101','debateacommunist','debatecommunism','fullcommunism','latestagecapitalism','moretankiechapo','genzedong']
 
-redditor_scores.to_csv('scores_over_count_gt_30_minmax.csv')
+for subr in subreds:
+    if subr in redditor_scores.columns:
+        redditor_scores.drop(columns=subr, inplace=True)
+
+redditor_scores.to_csv('scores_over_count_gt_30_poldropped.csv')
