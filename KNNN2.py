@@ -11,22 +11,20 @@ label_catergories = {
     "LibRight": 4,
     "RightUnity": 5,
     "LeftUnity": 6,
-    "LibUnity": 7,
-    "AuthUnity": 8,
-    "Centrist": 9
+    "Centrist": 7
 }
 
 quadrants = ['AuthLeft', 'LibLeft', 
             'AuthRight', 'LibRight',
-            'RightUnity','LeftUnity',
-            'LibUnity', 'AuthUnity', 'Centrist']
+            'RightUnity','LeftUnity', 'Centrist']
 
-redditor_scores_template = pd.read_csv('scores_over_count_gt_30_pd.csv', header=0)
-redditor_scores_template = redditor_scores_template.iloc[0:300,:400]
-redditor_scores = redditor_scores_template.sample(frac=.1).reset_index()
+redditor_scores_template = pd.read_csv('scores_over_count_gt_30_pd_news.csv', header=0)
+redditor_scores_template = redditor_scores_template.iloc[:150,:300]
+redditor_scores = redditor_scores_template.sample(frac=1).reset_index()
 del redditor_scores['index']
+print(redditor_scores.shape)
 
-masterList = pd.read_csv('Labels_with_scores.csv')
+masterList = pd.read_csv('masterListwoUnity_new.csv')
 eval_out = open("results.txt", "w+")  
 
 """
@@ -46,12 +44,12 @@ print(redditor_scores.shape)
 ind = np.arange(9)
 width = 0.35 
 
-for v in range(0,5):
+for v in range(0,3):
     total_predictions = 0
     total_predictions_correct = 0
     
     # Loop for K
-    for k in range(3,18):
+    for k in range(7,13):
         # evaluation metrics variables
         name_count = {}
         quad_predictions = [0,0,0,0,0,0,0,0,0]
@@ -92,7 +90,7 @@ for v in range(0,5):
             # Bootstrapping ****
             # Check if quad is under-represented in training data
             # Duplicate random sample with sample label (from training data or from entire sample, if nec) 
-            for i in range(0,9):
+            for i in range(0,7):
                 while train_sub_count[i] <= int(h//9):
                     try:
                         train_data.append(replace_array[i].sample(n=1))
@@ -198,7 +196,7 @@ for v in range(0,5):
     # exit()
 
 """ 
-    plt.plot(ks_array[3:18])       
+    plt.plot(ks_array[7:13])       
     print(str(total_predictions_correct/total_predictions))
     # END K LOOP
 

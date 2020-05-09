@@ -26,19 +26,7 @@ label_catergories = {
 masterList = pd.read_csv('label_list_1_with_old.csv',
                         header=0,
                         names=['name','libAuth','lefRit','quadrant'])
-print(masterList.shape)
-"""
-label_list = [0,0,0,0,0,0,0,0,0]
-n,p = masterList.shape
-for label in masterList.quadrant:
-    print(label)
-    label_list[int(label_catergories[label]-1)]+=1
 
-print(label_list)
-
-plt.plot(label_list)
-plt.show()
-"""
 # Create Reddit instance
 reddit = praw.Reddit(client_id='a8fxlGxtt5HeRg', client_secret='x0oQ53axICf_azi5SY_yB5xVkE8', user_agent='Reddit Scrape')
 

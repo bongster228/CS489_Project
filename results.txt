@@ -1,0 +1,65 @@
+K=7 10-fold Accuracy: 0.1
+Prediction distribution:[0, 1, 3, 0, 1, 3, 2, 0, 0]
+Ground Truth distribution:[0, 1, 2, 1, 1, 4, 1, 0, 0]
+Correct prediction distribution:[0, 0, 0, 0, 0, 1, 0, 0, 0]
+Missed prediction distribution:[0, 1, 2, 1, 1, 3, 1, 0, 0]
+K=8 10-fold Accuracy: 0.4
+Prediction distribution:[0, 4, 0, 0, 0, 6, 0, 0, 0]
+Ground Truth distribution:[2, 1, 1, 0, 1, 4, 1, 0, 0]
+Correct prediction distribution:[0, 1, 0, 0, 0, 3, 0, 0, 0]
+Missed prediction distribution:[2, 0, 1, 0, 1, 1, 1, 0, 0]
+K=9 10-fold Accuracy: 0.2
+Prediction distribution:[0, 0, 2, 1, 0, 7, 0, 0, 0]
+Ground Truth distribution:[1, 1, 2, 1, 2, 3, 0, 0, 0]
+Correct prediction distribution:[0, 0, 0, 0, 0, 2, 0, 0, 0]
+Missed prediction distribution:[1, 1, 2, 1, 2, 1, 0, 0, 0]
+K=10 10-fold Accuracy: 0.1
+Prediction distribution:[2, 3, 0, 0, 0, 4, 1, 0, 0]
+Ground Truth distribution:[0, 2, 2, 1, 0, 5, 0, 0, 0]
+Correct prediction distribution:[0, 0, 0, 0, 0, 1, 0, 0, 0]
+Missed prediction distribution:[0, 2, 2, 1, 0, 4, 0, 0, 0]
+K=11 10-fold Accuracy: 0.3
+Prediction distribution:[0, 1, 1, 1, 0, 7, 0, 0, 0]
+Ground Truth distribution:[0, 1, 1, 4, 0, 3, 1, 0, 0]
+Correct prediction distribution:[0, 0, 0, 1, 0, 2, 0, 0, 0]
+Missed prediction distribution:[0, 1, 1, 3, 0, 1, 1, 0, 0]
+K=12 10-fold Accuracy: 0.3
+Prediction distribution:[0, 1, 0, 1, 0, 8, 0, 0, 0]
+Ground Truth distribution:[1, 0, 4, 0, 0, 4, 1, 0, 0]
+Correct prediction distribution:[0, 0, 0, 0, 0, 3, 0, 0, 0]
+Missed prediction distribution:[1, 0, 4, 0, 0, 1, 1, 0, 0]
+K=7 10-fold Accuracy: 0.1
+Prediction distribution:[0, 4, 2, 0, 0, 4, 0, 0, 0]
+Ground Truth distribution:[1, 0, 2, 2, 1, 4, 0, 0, 0]
+Correct prediction distribution:[0, 0, 0, 0, 0, 1, 0, 0, 0]
+Missed prediction distribution:[1, 0, 2, 2, 1, 3, 0, 0, 0]
+K=8 10-fold Accuracy: 0.3
+Prediction distribution:[1, 0, 1, 3, 0, 5, 0, 0, 0]
+Ground Truth distribution:[3, 1, 0, 3, 0, 3, 0, 0, 0]
+Correct prediction distribution:[0, 0, 0, 1, 0, 2, 0, 0, 0]
+Missed prediction distribution:[3, 1, 0, 2, 0, 1, 0, 0, 0]
+K=9 10-fold Accuracy: 0.2
+Prediction distribution:[0, 3, 1, 1, 0, 5, 0, 0, 0]
+Ground Truth distribution:[1, 1, 3, 0, 2, 2, 1, 0, 0]
+Correct prediction distribution:[0, 1, 0, 0, 0, 1, 0, 0, 0]
+Missed prediction distribution:[1, 0, 3, 0, 2, 1, 1, 0, 0]
+K=10 10-fold Accuracy: 0.2
+Prediction distribution:[0, 1, 2, 1, 0, 5, 1, 0, 0]
+Ground Truth distribution:[0, 2, 2, 2, 1, 2, 1, 0, 0]
+Correct prediction distribution:[0, 0, 1, 0, 0, 1, 0, 0, 0]
+Missed prediction distribution:[0, 2, 1, 2, 1, 1, 1, 0, 0]
+K=11 10-fold Accuracy: 0.4
+Prediction distribution:[0, 1, 0, 1, 0, 8, 0, 0, 0]
+Ground Truth distribution:[1, 1, 1, 1, 0, 3, 3, 0, 0]
+Correct prediction distribution:[0, 0, 0, 1, 0, 3, 0, 0, 0]
+Missed prediction distribution:[1, 1, 1, 0, 0, 0, 3, 0, 0]
+K=12 10-fold Accuracy: 0.4
+Prediction distribution:[0, 2, 0, 0, 0, 8, 0, 0, 0]
+Ground Truth distribution:[1, 1, 2, 0, 0, 6, 0, 0, 0]
+Correct prediction distribution:[0, 0, 0, 0, 0, 4, 0, 0, 0]
+Missed prediction distribution:[1, 1, 2, 0, 0, 2, 0, 0, 0]
+K=7 10-fold Accuracy: 0.1
+Prediction distribution:[0, 2, 1, 4, 0, 3, 0, 0, 0]
+Ground Truth distribution:[0, 1, 1, 1, 2, 2, 3, 0, 0]
+Correct prediction distribution:[0, 0, 0, 0, 0, 1, 0, 0, 0]
+Missed prediction distribution:[0, 1, 1, 1, 2, 1, 3, 0, 0]
